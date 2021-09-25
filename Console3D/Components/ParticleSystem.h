@@ -58,10 +58,10 @@ public:
         m_LifeTime--;
 
         if (m_LifeTime < m_InitLifetime / 1.5)
-            m_Char = 'x';
+            m_Char = 'X';
 
         if (m_LifeTime < m_InitLifetime / 3)
-            m_Char = '-';
+            m_Char = '.';
 
         if (m_LifeTime <= 0)
             isDead = true;
@@ -111,7 +111,7 @@ public:
         for (int i = 0; i < NUM_PARTICLES; i++)
         {
             int lifeTime = (int)RandomDbl(PARTICLE_LIFETIME / 2, PARTICLE_LIFETIME);
-            Particle* p = new Particle(m_ScrnX, m_ScrnY, '.', lifeTime);
+            Particle* p = new Particle(m_ScrnX, m_ScrnY, '-', lifeTime);
             m_Particles.emplace_back(p);
         }
     };

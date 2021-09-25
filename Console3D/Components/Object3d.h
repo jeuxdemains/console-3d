@@ -99,6 +99,5 @@ public:
 	virtual Vector3d::Mesh LoadModel(std::string fName) = 0;
 	virtual void Update();
 	virtual void Render();
-	virtual void Clear();
 };
 

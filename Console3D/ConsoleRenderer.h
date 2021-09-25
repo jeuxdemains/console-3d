@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include <math.h>
 #include <iostream>
+#include <vector>
 
 class ConsoleRenderer
 {

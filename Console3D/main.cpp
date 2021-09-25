@@ -29,7 +29,7 @@ void main()
 
 
     renderer.SetSize(SCRN_W, SCRN_H);
-    renderer.SetFontSize(5, 7);
+    renderer.SetFontSize(7, 8);
 
     SceneOrchestrator orchestrator(renderer);
 

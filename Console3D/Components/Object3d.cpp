@@ -10,30 +10,6 @@ void Object3d::Update()
 	fRotationX_ += 1.0f * 0.04f;
 	fRotationY_ += 1.0f * 0.08f;
 	fRotationZ_ += 1.0f * 0.12f;
-
-	Render();
-}
-
-void Object3d::Clear()
-{
-	for (int i = numVerticesToClear; i >= 0; i--)
-	{
-		m_Renderer.DrawLine(
-			projectedTri[i].a.x, projectedTri[i].a.y,
-			projectedTri[i].b.x, projectedTri[i].b.y,
-			' ');
-
-		m_Renderer.DrawLine(
-			projectedTri[i].b.x, projectedTri[i].b.y,
-			projectedTri[i].c.x, projectedTri[i].c.y,
-			' ');
-
-		m_Renderer.DrawLine(
-			projectedTri[i].c.x, projectedTri[i].c.y,
-			projectedTri[i].a.x, projectedTri[i].a.y,
-			' ');
-	}
-	
 }
 
 void Object3d::Render()

@@ -29,10 +29,9 @@ void ConsoleRenderer::Clear()
 
     screenBufferFlip = !screenBufferFlip;
 
-    DWORD cCharsWritten;
+   DWORD cCharsWritten;
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     GetConsoleScreenBufferInfo(hStdout, &csbi);
-
 
     DWORD dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
 
@@ -47,6 +46,7 @@ void ConsoleRenderer::DrawPixel(short x, short y, char pixelChr)
     DWORD cCharsWritten;
     FillConsoleOutputCharacter(
         ConsoleRenderer::curScreenBufferHandle, (TCHAR)pixelChr, 1, { x, y }, &cCharsWritten);
+
 }
 
 void ConsoleRenderer::SetFontSize(short w, short h)
