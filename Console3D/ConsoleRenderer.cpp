@@ -1,23 +1,31 @@
-#include "console.h"
+#include "ConsoleRenderer.h"
 
-HANDLE console::curScreenBufferHandle;
+HANDLE ConsoleRenderer::curScreenBufferHandle;
 
-void console::Update()
+ConsoleRenderer::ConsoleRenderer()
 {
-    DrawLine(5, 5, m_X, m_Y, '+');
+    hWin = GetConsoleWindow();
+    hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
 
-    if (m_X < cols)
-        m_X++;
-    if (m_Y < rows)
-        m_Y++;
+    hNewScreenBuffer = CreateConsoleScreenBuffer(
+        GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
+
+    hNewScreenBuffer2 = CreateConsoleScreenBuffer(
+        GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
+
+    GetConsoleDimensions();
 }
 
-void console::Clear()
+void ConsoleRenderer::Clear()
 {
+    HANDLE oldScreenBuff = curScreenBufferHandle;
+
     if (screenBufferFlip)
-       console::curScreenBufferHandle = hNewScreenBuffer;
+        ConsoleRenderer::curScreenBufferHandle = hNewScreenBuffer;
     else
-        console::curScreenBufferHandle = hNewScreenBuffer2;
+        ConsoleRenderer::curScreenBufferHandle = hNewScreenBuffer2;
+
+    SetConsoleActiveScreenBuffer(ConsoleRenderer::curScreenBufferHandle);
 
     screenBufferFlip = !screenBufferFlip;
 
@@ -25,22 +33,23 @@ void console::Clear()
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     GetConsoleScreenBufferInfo(hStdout, &csbi);
 
+
     DWORD dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
 
     FillConsoleOutputCharacter(
-        console::curScreenBufferHandle, (TCHAR)' ', dwConSize, { 0,0 }, &cCharsWritten);
+        oldScreenBuff,
+        (TCHAR)' ', dwConSize, { 0,0 }, &cCharsWritten);
 
-    SetConsoleActiveScreenBuffer(console::curScreenBufferHandle);
 }
 
-void console::DrawPixel(short x, short y, char pixelChr)
+void ConsoleRenderer::DrawPixel(short x, short y, char pixelChr)
 {
     DWORD cCharsWritten;
     FillConsoleOutputCharacter(
-        console::curScreenBufferHandle, (TCHAR)pixelChr, 1, { x, y }, &cCharsWritten);
+        ConsoleRenderer::curScreenBufferHandle, (TCHAR)pixelChr, 1, { x, y }, &cCharsWritten);
 }
 
-void console::SetFontSize(short w, short h)
+void ConsoleRenderer::SetFontSize(short w, short h)
 {
     CONSOLE_FONT_INFOEX cfi;
     cfi.cbSize = sizeof(cfi);
@@ -56,7 +65,7 @@ void console::SetFontSize(short w, short h)
     GetConsoleDimensions();
 }
 
-void console::SetSize(short w, short h)
+void ConsoleRenderer::SetSize(short w, short h)
 {
     COORD coord;
     coord.X = w;
@@ -84,7 +93,7 @@ void console::SetSize(short w, short h)
     GetConsoleDimensions();
 }
 
-void console::ShowLastSystemError()
+void ConsoleRenderer::ShowLastSystemError()
 {
     LPSTR messageBuffer;
     FormatMessageA(
@@ -100,7 +109,7 @@ void console::ShowLastSystemError()
 }
 
 //a besenham line algo implementation
-void console::DrawLine(int x1, int y1, int x2, int y2, char chr)
+void ConsoleRenderer::DrawLine(int x1, int y1, int x2, int y2, char chr)
 {
     int x, y, dx, dy, dx1, dy1, px, py, xe, ye, i;
     dx = x2 - x1;

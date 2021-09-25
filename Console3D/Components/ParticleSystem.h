@@ -1,9 +1,9 @@
 #pragma once
-#include "console.h"
 #include <vector>
 #include <time.h>
 #include <ctime>
 #include <cstdlib>
+#include "Component.h"
 
 class Particle
 {
@@ -58,7 +58,7 @@ public:
         m_LifeTime--;
 
         if (m_LifeTime < m_InitLifetime / 1.5)
-            m_Char = 'X';
+            m_Char = 'x';
 
         if (m_LifeTime < m_InitLifetime / 3)
             m_Char = '-';
@@ -96,9 +96,9 @@ public:
     ~Particle() {};
 };
 
-class ParticleSystem
+class ParticleSystem : public Component
 {
-    console m_Con;
+    ConsoleRenderer m_Renderer;
     const int NUM_PARTICLES = 300;
     const int PARTICLE_LIFETIME = 80;
     std::vector<Particle*> m_Particles = {};
@@ -106,7 +106,7 @@ class ParticleSystem
     double tetha = 0;
 
 public:
-    ParticleSystem(console con, double x, double y) : m_Con(con), m_ScrnX(x), m_ScrnY(y)
+    ParticleSystem(ConsoleRenderer renderer, double x, double y) : m_Renderer(renderer), m_ScrnX(x), m_ScrnY(y)
     {
         for (int i = 0; i < NUM_PARTICLES; i++)
         {
@@ -141,7 +141,7 @@ public:
     void Render()
     {
         for (auto& particle : m_Particles)
-            m_Con.DrawPixel(particle->m_X, particle->m_Y, particle->Chr());
+            m_Renderer.DrawPixel(particle->m_X, particle->m_Y, particle->Chr());
     }
 
     ~ParticleSystem() 

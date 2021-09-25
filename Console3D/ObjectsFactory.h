@@ -1,8 +1,8 @@
 #pragma once
 #include <memory>
-#include "Object3dCube.h"
-#include "Object3dModel.h"
-#include "console.h"
+#include "Components/Object3dCube.h"
+#include "Components/Object3dModel.h"
+#include "ConsoleRenderer.h"
 
 class ObjectsFactory
 {
@@ -13,17 +13,17 @@ public:
 		model
 	};
 
-	Object3d* createObject(Type objType, console& con, int scrnW, int scrnH, char chr = '*')
+	Object3d* createObject(Type objType, ConsoleRenderer& renderer, int scrnW, int scrnH, char chr = '*')
 	{
 		Object3d* obj;
 		switch (objType)
 		{
 		case ObjectsFactory::cube:
-			obj = new Object3dCube(con, scrnW, scrnH, chr);
+			obj = new Object3dCube(renderer, scrnW, scrnH, chr);
 			break;
 		case ObjectsFactory::model:
 		default:
-			obj = new Object3dModel("model.obj", con, scrnW, scrnH, chr);
+			obj = new Object3dModel("model.obj", renderer, scrnW, scrnH, chr);
 			break;
 		}
 

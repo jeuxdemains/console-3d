@@ -4,9 +4,9 @@
 class Object3dModel : public Object3d
 {
 public:
-	Object3dModel(std::string fName, console con, int scrnW, int scrnH, char chr)
+	Object3dModel(std::string fName, ConsoleRenderer renderer, int scrnW, int scrnH, char chr)
 	{
-		Object3dAdd(LoadModel(fName), con, scrnW, scrnH, chr);
+		Object3dAdd(LoadModel(fName), renderer, scrnW, scrnH, chr);
 	};
 
 	~Object3dModel() {};

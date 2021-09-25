@@ -140,25 +140,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Banner.cpp" />
-    <ClCompile Include="console.cpp" />
+    <ClCompile Include="Components\Banner.cpp" />
+    <ClCompile Include="Components\Component.cpp" />
+    <ClCompile Include="Components\Object3d.cpp" />
+    <ClCompile Include="Components\Object3dCube.cpp" />
+    <ClCompile Include="Components\Object3dModel.cpp" />
+    <ClCompile Include="Components\ParticleSystem.cpp" />
+    <ClCompile Include="ConsoleRenderer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix.cpp" />
-    <ClCompile Include="Object3d.cpp" />
-    <ClCompile Include="Object3dCube.cpp" />
-    <ClCompile Include="Object3dModel.cpp" />
     <ClCompile Include="ObjectsFactory.cpp" />
-    <ClCompile Include="ParticleSystem.cpp" />
+    <ClCompile Include="SceneOrchestrator.cpp" />
+    <ClCompile Include="Scenes\Scene.cpp" />
+    <ClCompile Include="Scenes\Scene_1.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Banner.h" />
-    <ClInclude Include="console.h" />
+    <ClInclude Include="Components\Banner.h" />
+    <ClInclude Include="Components\Component.h" />
+    <ClInclude Include="Components\Object3d.h" />
+    <ClInclude Include="Components\Object3dCube.h" />
+    <ClInclude Include="Components\Object3dModel.h" />
+    <ClInclude Include="Components\ParticleSystem.h" />
+    <ClInclude Include="ConsoleRenderer.h" />
     <ClInclude Include="Matrix.h" />
-    <ClInclude Include="Object3d.h" />
-    <ClInclude Include="Object3dCube.h" />
-    <ClInclude Include="Object3dModel.h" />
     <ClInclude Include="ObjectsFactory.h" />
-    <ClInclude Include="ParticleSystem.h" />
+    <ClInclude Include="SceneOrchestrator.h" />
+    <ClInclude Include="Scenes\Scene.h" />
+    <ClInclude Include="Scenes\Scene_1.h" />
     <ClInclude Include="Vector3d.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

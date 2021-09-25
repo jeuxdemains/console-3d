@@ -1,20 +1,20 @@
 #pragma once
 #include <time.h>
 #include <string>
-#include "Vector3d.h"
-#include "Matrix.h"
-#include "console.h"
+#include "../Vector3d.h"
+#include "../Matrix.h"
+#include "Component.h"
 
 static float incRX, incRY, incRZ;
 
-class Object3d
+class Object3d : public Component
 {
 	float fRotationX_ = 0.0f, fRotationY_ = 0.0f, fRotationZ_ = 0.0f;
 	std::vector<Vector3d::Mesh> objects_;
 	int m_ScrnW, m_ScrnH;
 	bool isFirst_ = false;
 	Matrix* matrix = nullptr;
-	console m_Console;
+	ConsoleRenderer m_Renderer;
 	char m_Char;
 
 	static const int vertCount = 7;
@@ -32,12 +32,12 @@ public:
 	Object3d() {};
 	Object3d(int scrnW, int scrnH) : m_ScrnW(scrnW), m_ScrnH(scrnH) {};
 
-	void Object3dAdd(Vector3d::Mesh obj, console con, int sW, int sH, char chr)
+	void Object3dAdd(Vector3d::Mesh obj, ConsoleRenderer renderer, int sW, int sH, char chr)
 	{
 		m_ScrnW = sW;
 		m_ScrnH = sH;
 		matrix = new Matrix((float)m_ScrnW, (float)m_ScrnH);
-		m_Console = con;
+		m_Renderer = renderer;
 
 		incRX = incRY = incRZ += 0.003f;
 		fRotationX_ = incRX;
@@ -87,7 +87,7 @@ public:
 		y = tri.a.y + tri.b.y + tri.c.y;
 		y /= 3;
 
-		m_Console.DrawPixel(x, y, m_Char);
+		m_Renderer.DrawPixel(x, y, m_Char);
 	}
 
 	int Min(int a, int b)

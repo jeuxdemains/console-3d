@@ -1,44 +1,43 @@
 #include <iostream>
 #include <vector>
-#include "Object3d.h"
-#include "ObjectsFactory.h"
-#include "console.h"
-#include "ParticleSystem.h"
-#include "Banner.h"
+
+#include "ConsoleRenderer.h"
+#include "SceneOrchestrator.h"
+
+const int SCRN_W = 200;
+const int SCRN_H = 120;
 
 void main()
 {
-    console* con = new console();
-    con->SetSize(200, 120);
-    con->SetFontSize(5, 7);
+    ConsoleRenderer renderer;
 
-   /* std::vector<Object3d*> objects = {};
-    ObjectsFactory objFactory;
-    
-    objects.emplace_back(
-        objFactory.createObject(ObjectsFactory::model, *con, con->cols, con->rows, '#')
-    );*/
-        
-    ObjectsFactory objFac;
-    Object3d &obj = *objFac.createObject(ObjectsFactory::cube, *con, con->cols, con->rows, '#');
-    ParticleSystem particleSys(*con, 100, 60);
-    Banner banner(*con, con->cols/2 - 16, 7);
+    /*renderer.SetFontSize(15, 30);
+    std::cout << "   jeux/TRSI\n";
+    Sleep(1000);
+    std::cout << "   PRESENTS\n";
+    Sleep(1000);
+    std::cout << "3D donsole demo\n";
+    Sleep(1000);
+    std::cout << " from scratch\n";
+    Sleep(3000);
+
+    for (int i = 0; i < 20; i++)
+    {
+        renderer.SetFontSize(15+i*2, 30+i*2);
+        Sleep(100);
+    }*/
+
+
+    renderer.SetSize(SCRN_W, SCRN_H);
+    renderer.SetFontSize(5, 7);
+
+    SceneOrchestrator orchestrator(renderer);
 
     while (1)
     {
-        con->Clear();
-
-        obj.Update();
-        obj.Render();
-
-        particleSys.Update();
-        particleSys.Render();
-
-        banner.Update();
-        banner.Render();
+        orchestrator.Update();
+        orchestrator.Render();
 
         Sleep(1 / 60.0f * 1000.0f);
     }
-
-    delete con;
 }

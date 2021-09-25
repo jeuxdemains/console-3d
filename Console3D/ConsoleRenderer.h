@@ -3,7 +3,7 @@
 #include <math.h>
 #include <iostream>
 
-class console
+class ConsoleRenderer
 {
     HWND hWin;
     CONSOLE_SCREEN_BUFFER_INFO csbi;
@@ -26,38 +26,16 @@ class console
 
     void ShowLastSystemError();
 public:
-    console() 
-    {
-        hWin = GetConsoleWindow();
-        hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
-
-        hNewScreenBuffer = CreateConsoleScreenBuffer(
-            GENERIC_WRITE,
-            0,
-            NULL,                    // default security attributes 
-            CONSOLE_TEXTMODE_BUFFER, // must be TEXTMODE 
-            NULL);                   // reserved; must be NULL 
-
-        hNewScreenBuffer2 = CreateConsoleScreenBuffer(
-            GENERIC_WRITE,
-            0,
-            NULL,                    // default security attributes 
-            CONSOLE_TEXTMODE_BUFFER, // must be TEXTMODE 
-            NULL);                   // reserved; must be NULL 
-
-        GetConsoleDimensions();
-
-    };
-
-    ~console() {};
+    ConsoleRenderer();
+    ~ConsoleRenderer() {};
 
     void DrawLine(int x0, int y0, int x1, int y1, char chr = '*');
     void DrawPixel(short x, short y, char pixelChr = '*');
-    void Update();
     void Clear();
     void SetFontSize(short w, short h);
     void SetSize(short w, short h);
-
+    int ScreenW() { return cols; }
+    int ScreenH() { return rows; }
     int cols, rows;
 
 };
