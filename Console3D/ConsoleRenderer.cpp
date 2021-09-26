@@ -1,52 +1,42 @@
 #include "ConsoleRenderer.h"
 
-HANDLE ConsoleRenderer::curScreenBufferHandle;
-
-ConsoleRenderer::ConsoleRenderer()
+void ConsoleRenderer::Init()
 {
     hWin = GetConsoleWindow();
     hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
 
-    hNewScreenBuffer = CreateConsoleScreenBuffer(
-        GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
-
-    hNewScreenBuffer2 = CreateConsoleScreenBuffer(
-        GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
-
     GetConsoleDimensions();
+    SetConsoleActiveScreenBuffer(hStdout);
+
+    m_ScreenBufferData = (char*)malloc(ScreenW() * ScreenH());
+    memset(m_ScreenBufferData, 0x20, ScreenW() * ScreenH());
 }
 
 void ConsoleRenderer::Clear()
 {
-    HANDLE oldScreenBuff = curScreenBufferHandle;
+    DWORD bytesWritten;
+    SetConsoleCursorPosition(hStdout, { 0,0 });
+    WriteConsoleA(
+        hStdout,
+        m_ScreenBufferData,
+        ScreenW() * ScreenH(),
+        &bytesWritten, NULL);
 
-    if (screenBufferFlip)
-        ConsoleRenderer::curScreenBufferHandle = hNewScreenBuffer;
-    else
-        ConsoleRenderer::curScreenBufferHandle = hNewScreenBuffer2;
-
-    SetConsoleActiveScreenBuffer(ConsoleRenderer::curScreenBufferHandle);
-
-    screenBufferFlip = !screenBufferFlip;
-
-   DWORD cCharsWritten;
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    GetConsoleScreenBufferInfo(hStdout, &csbi);
-
-    DWORD dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
-
-    FillConsoleOutputCharacter(
-        oldScreenBuff,
-        (TCHAR)' ', dwConSize, { 0,0 }, &cCharsWritten);
-
+    memset(m_ScreenBufferData, 0x20, ScreenW() * ScreenH());
 }
 
 void ConsoleRenderer::DrawPixel(short x, short y, char pixelChr)
 {
-    DWORD cCharsWritten;
-    FillConsoleOutputCharacter(
-        ConsoleRenderer::curScreenBufferHandle, (TCHAR)pixelChr, 1, { x, y }, &cCharsWritten);
+    if (x < 0 || x > ScreenW())
+        return;
+    if (y < 0 || y > ScreenH())
+        return;
 
+    int addr = (y * ScreenW()) + x;
+    if (addr < 0 || addr > ScreenW() * ScreenH())
+        return;
+
+    m_ScreenBufferData[addr] = pixelChr;
 }
 
 void ConsoleRenderer::SetFontSize(short w, short h)
@@ -60,8 +50,6 @@ void ConsoleRenderer::SetFontSize(short w, short h)
     cfi.FontWeight = FW_NORMAL;
     lstrcpyW(cfi.FaceName, L"Consolas");
     SetCurrentConsoleFontEx(hStdout, FALSE, &cfi);
-    SetCurrentConsoleFontEx(hNewScreenBuffer, FALSE, &cfi);
-    SetCurrentConsoleFontEx(hNewScreenBuffer2, FALSE, &cfi);
     GetConsoleDimensions();
 }
 
@@ -80,14 +68,6 @@ void ConsoleRenderer::SetSize(short w, short h)
     SetConsoleWindowInfo(hStdout, TRUE, &Rect);
 
     if (!SetConsoleScreenBufferSize(hStdout, coord))
-        ShowLastSystemError();
-
-    SetConsoleWindowInfo(hNewScreenBuffer, TRUE, &Rect);
-    if (!SetConsoleScreenBufferSize(hNewScreenBuffer, coord))
-        ShowLastSystemError();
-
-    SetConsoleWindowInfo(hNewScreenBuffer2, TRUE, &Rect);
-    if (!SetConsoleScreenBufferSize(hNewScreenBuffer2, coord))
         ShowLastSystemError();
 
     GetConsoleDimensions();

@@ -11,11 +11,11 @@ class Object3d : public Component
 {
 	float fRotationX_ = 0.0f, fRotationY_ = 0.0f, fRotationZ_ = 0.0f;
 	std::vector<Vector3d::Mesh> objects_;
-	int m_ScrnW, m_ScrnH;
+	int m_ScrnW = 0, m_ScrnH = 0;
 	bool isFirst_ = false;
 	Matrix* matrix = nullptr;
-	ConsoleRenderer m_Renderer;
-	char m_Char;
+	ConsoleRenderer* m_Renderer = nullptr;
+	char m_Char = 0;
 
 	static const int vertCount = 7;
 	Vector3d::Triangle
@@ -32,7 +32,7 @@ public:
 	Object3d() {};
 	Object3d(int scrnW, int scrnH) : m_ScrnW(scrnW), m_ScrnH(scrnH) {};
 
-	void Object3dAdd(Vector3d::Mesh obj, ConsoleRenderer renderer, int sW, int sH, char chr)
+	void Object3dAdd(Vector3d::Mesh obj, ConsoleRenderer *renderer, int sW, int sH, char chr)
 	{
 		m_ScrnW = sW;
 		m_ScrnH = sH;
@@ -87,7 +87,7 @@ public:
 		y = tri.a.y + tri.b.y + tri.c.y;
 		y /= 3;
 
-		m_Renderer.DrawPixel(x, y, m_Char);
+		m_Renderer->DrawPixel(x, y, m_Char);
 	}
 
 	int Min(int a, int b)

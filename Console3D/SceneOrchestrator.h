@@ -6,11 +6,11 @@
 class SceneOrchestrator
 {
     std::vector<Scene> m_Scenes;
-    ConsoleRenderer m_Renderer;
+    ConsoleRenderer* m_Renderer;
     int m_CurSceneId = 0;
 
 public:
-    SceneOrchestrator(ConsoleRenderer renderer) 
+    SceneOrchestrator(ConsoleRenderer* renderer) 
     {
         m_Renderer = renderer;
         Scene_1 s1(m_Renderer);

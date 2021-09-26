@@ -9,8 +9,8 @@ const int SCRN_H = 120;
 
 void main()
 {
-    ConsoleRenderer renderer;
-
+    ConsoleRenderer* renderer = new ConsoleRenderer();
+    renderer->Init();
     /*renderer.SetFontSize(15, 30);
     std::cout << "   jeux/TRSI\n";
     Sleep(1000);
@@ -28,8 +28,8 @@ void main()
     }*/
 
 
-    renderer.SetSize(SCRN_W, SCRN_H);
-    renderer.SetFontSize(7, 8);
+    renderer->SetSize(SCRN_W, SCRN_H);
+    renderer->SetFontSize(7, 8);
 
     SceneOrchestrator orchestrator(renderer);
 

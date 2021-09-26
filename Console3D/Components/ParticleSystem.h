@@ -98,7 +98,7 @@ public:
 
 class ParticleSystem : public Component
 {
-    ConsoleRenderer m_Renderer;
+    ConsoleRenderer* m_Renderer;
     const int NUM_PARTICLES = 300;
     const int PARTICLE_LIFETIME = 80;
     std::vector<Particle*> m_Particles = {};
@@ -106,7 +106,8 @@ class ParticleSystem : public Component
     double tetha = 0;
 
 public:
-    ParticleSystem(ConsoleRenderer renderer, double x, double y) : m_Renderer(renderer), m_ScrnX(x), m_ScrnY(y)
+    ParticleSystem(ConsoleRenderer *renderer, double x, double y) : 
+        m_Renderer(renderer), m_ScrnX(x), m_ScrnY(y)
     {
         for (int i = 0; i < NUM_PARTICLES; i++)
         {
@@ -141,7 +142,7 @@ public:
     void Render()
     {
         for (auto& particle : m_Particles)
-            m_Renderer.DrawPixel(particle->m_X, particle->m_Y, particle->Chr());
+            m_Renderer->DrawPixel(particle->m_X, particle->m_Y, particle->Chr());
     }
 
     ~ParticleSystem() 

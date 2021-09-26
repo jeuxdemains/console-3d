@@ -4,7 +4,7 @@
 class Object3dCube : public Object3d
 {
 public:
-	Object3dCube(ConsoleRenderer renderer, int scrnW, int scrnH, uint8_t alpha)
+	Object3dCube(ConsoleRenderer *renderer, int scrnW, int scrnH, uint8_t alpha)
 	{
 		Object3dAdd(LoadModel("cube"), renderer, scrnW, scrnH, alpha);
 	};

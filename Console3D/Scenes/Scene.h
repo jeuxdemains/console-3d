@@ -7,7 +7,7 @@ class Scene
 {
 protected:
     std::vector<Component*> m_Components;
-    ConsoleRenderer m_Renderer;
+    ConsoleRenderer* m_Renderer;
 
 public:
     Scene() {};
@@ -37,7 +37,7 @@ public:
 
     virtual void Render()
     {
-        m_Renderer.Clear();
+        m_Renderer->Clear();
 
         for (auto& comp : m_Components)
             comp->Render();

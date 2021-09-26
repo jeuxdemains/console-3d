@@ -13,7 +13,7 @@ public:
 		model
 	};
 
-	Object3d* createObject(Type objType, ConsoleRenderer& renderer, int scrnW, int scrnH, char chr = '*')
+	Object3d* createObject(Type objType, ConsoleRenderer* renderer, int scrnW, int scrnH, char chr = '*')
 	{
 		Object3d* obj;
 		switch (objType)

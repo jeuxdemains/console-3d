@@ -4,7 +4,7 @@
 class Object3dModel : public Object3d
 {
 public:
-	Object3dModel(std::string fName, ConsoleRenderer renderer, int scrnW, int scrnH, char chr)
+	Object3dModel(std::string fName, ConsoleRenderer* renderer, int scrnW, int scrnH, char chr)
 	{
 		Object3dAdd(LoadModel(fName), renderer, scrnW, scrnH, chr);
 	};

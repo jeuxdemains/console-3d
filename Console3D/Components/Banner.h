@@ -4,14 +4,14 @@
 
 class Banner : public Component
 {
-    ConsoleRenderer m_Renderer;
+    ConsoleRenderer* m_Renderer;
     double m_X, m_Y;
     char V[8][50], M[8][50], W[8][50], A[8][50], R[8][50], E[8][50];
     double tethaLetter = 0;
     double tetha = 0;
 
 public:
-    Banner(ConsoleRenderer renderer, double x, double y) :
+    Banner(ConsoleRenderer* renderer, double x, double y) :
         m_Renderer(renderer), m_X(x), m_Y(y)
     {
 
@@ -100,7 +100,7 @@ public:
             {
                 double colY = m_Y;
                 colY += 5 * sin(12 * tethaLetter);
-                m_Renderer.DrawPixel((double)col + m_X + xSpace, (double)row + colY, chr[row][col]);
+                m_Renderer->DrawPixel((double)col + m_X + xSpace, (double)row + colY, chr[row][col]);
             }
         }
     }

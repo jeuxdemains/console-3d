@@ -89,17 +89,17 @@ void Object3d::Render()
 
 		FillPolygon(projectedTri[i]);
 
-		m_Renderer.DrawLine(
+		m_Renderer->DrawLine(
 			projectedTri[i].a.x, projectedTri[i].a.y,
 			projectedTri[i].b.x, projectedTri[i].b.y,
 			m_Char);
 
-		m_Renderer.DrawLine(
+		m_Renderer->DrawLine(
 			projectedTri[i].b.x, projectedTri[i].b.y,
 			projectedTri[i].c.x, projectedTri[i].c.y,
 			m_Char);
 
-		m_Renderer.DrawLine(
+		m_Renderer->DrawLine(
 			projectedTri[i].c.x, projectedTri[i].c.y,
 			projectedTri[i].a.x, projectedTri[i].a.y,
 			m_Char);
