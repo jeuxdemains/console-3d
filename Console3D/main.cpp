@@ -11,7 +11,8 @@ void main()
 {
     ConsoleRenderer* renderer = new ConsoleRenderer();
     renderer->Init();
-    /*renderer.SetFontSize(15, 30);
+
+    renderer->SetFontSize(15, 30);
     std::cout << "   jeux/TRSI\n";
     Sleep(1000);
     std::cout << "   PRESENTS\n";
@@ -23,9 +24,9 @@ void main()
 
     for (int i = 0; i < 20; i++)
     {
-        renderer.SetFontSize(15+i*2, 30+i*2);
+        renderer->SetFontSize(15+i*2, 30+i*2);
         Sleep(100);
-    }*/
+    }
 
 
     renderer->SetSize(SCRN_W, SCRN_H);

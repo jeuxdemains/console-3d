@@ -88,7 +88,11 @@ void ConsoleRenderer::ShowLastSystemError()
     exit(-1);
 }
 
-//a besenham line algo implementation
+/*
+besenham's line algo
+to make realtime 3D, all you need is being able to draw a line
+and a small box of knowledge on vector and matrix math
+*/
 void ConsoleRenderer::DrawLine(int x1, int y1, int x2, int y2, char chr)
 {
     int x, y, dx, dy, dx1, dy1, px, py, xe, ye, i;
