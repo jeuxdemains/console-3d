@@ -2,12 +2,13 @@
 #include <vector>
 #include "../ConsoleRenderer.h"
 #include "../Components/Component.h"
+#include "../Components/Object3d.h"
 
 class Scene
 {
 protected:
-    std::vector<Component*> m_Components;
-    ConsoleRenderer* m_Renderer;
+    std::vector<Component*> m_Components = {};
+    ConsoleRenderer* m_Renderer = nullptr;
 
 public:
     Scene() {};
@@ -29,10 +30,22 @@ public:
         m_Components.emplace_back(comp);
     }
 
-    virtual void Update()
+    void RemoveComponent(std::string name)
+    {
+        for (int i = 0; i < m_Components.size(); i++)
+        {
+            if (((Object3d*)m_Components[i])->Name() == name)
+            {
+                m_Components.erase(m_Components.begin() + i);
+                break;
+            }
+        }
+    }
+
+    virtual void Update(double deltaTime, double instVol = 0.0)
     {
         for (auto& comp : m_Components)
-            comp->Update();
+            comp->Update(deltaTime, instVol);
     };
 
     virtual void Render()

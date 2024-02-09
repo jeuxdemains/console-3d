@@ -9,6 +9,6 @@ public:
 		Object3dAdd(LoadModel("cube"), renderer, scrnW, scrnH, alpha);
 	};
 	~Object3dCube() {};
-	Vector3d::Mesh LoadModel(std::string fName) override;
+	Vector3d::Mesh* LoadModel(std::string fName) override;
 };
 

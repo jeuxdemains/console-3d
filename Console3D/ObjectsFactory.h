@@ -10,20 +10,32 @@ public:
 	enum Type
 	{
 		cube,
+		tetrahedron,
+		globe,
 		model
 	};
 
-	Object3d* createObject(Type objType, ConsoleRenderer* renderer, int scrnW, int scrnH, char chr = '*')
+	Object3d* CreateObject(Type objType, ConsoleRenderer* renderer, int scrnW, int scrnH, char chr = '*')
 	{
 		Object3d* obj;
+
 		switch (objType)
 		{
 		case ObjectsFactory::cube:
 			obj = new Object3dCube(renderer, scrnW, scrnH, chr);
+			obj->SetName("cube");
 			break;
-		case ObjectsFactory::model:
+		case ObjectsFactory::tetrahedron:
+			obj = new Object3dModel("tetrahedron.obj", renderer, scrnW, scrnH, chr);
+			obj->SetName("tetrahedron");
+			break;
+		case ObjectsFactory::globe:
+			obj = new Object3dModel("globe.obj", renderer, scrnW, scrnH, chr);
+			obj->SetName("globe");
+			break;
 		default:
-			obj = new Object3dModel("model.obj", renderer, scrnW, scrnH, chr);
+			obj = new Object3dModel("tetrahedron.obj", renderer, scrnW, scrnH, chr);
+			obj->SetName("tetrahedron");
 			break;
 		}
 

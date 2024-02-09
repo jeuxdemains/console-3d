@@ -1,39 +1,49 @@
 #include "ConsoleRenderer.h"
 
-void ConsoleRenderer::Init()
+void ConsoleRenderer::Shutdown()
+{
+    if (m_ScreenBufferData)
+        free(m_ScreenBufferData);
+};
+
+void ConsoleRenderer::Init(short screenWCols, short screenHRows)
 {
     hWin = GetConsoleWindow();
     hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
-
-    GetConsoleDimensions();
+    cols = screenWCols;
+    rows = screenHRows;
     SetConsoleActiveScreenBuffer(hStdout);
+    SetSize(cols, rows);
 
-    m_ScreenBufferData = (char*)malloc(ScreenW() * ScreenH());
-    memset(m_ScreenBufferData, 0x20, ScreenW() * ScreenH());
+    size_t sz = size_t(cols*rows);
+    m_ScreenBufferData = (unsigned char*)malloc(sz);
+    memset(m_ScreenBufferData, 0x20, sz);
 }
 
 void ConsoleRenderer::Clear()
 {
     DWORD bytesWritten;
     SetConsoleCursorPosition(hStdout, { 0,0 });
+    unsigned int sz = cols * rows;
+
     WriteConsoleA(
         hStdout,
         m_ScreenBufferData,
-        ScreenW() * ScreenH(),
+        sz,
         &bytesWritten, NULL);
 
-    memset(m_ScreenBufferData, 0x20, ScreenW() * ScreenH());
+    memset(m_ScreenBufferData, 0x20, sz);
 }
 
-void ConsoleRenderer::DrawPixel(short x, short y, char pixelChr)
+void ConsoleRenderer::DrawPixel(unsigned int x, unsigned int y, char pixelChr)
 {
-    if (x < 0 || x > ScreenW())
+    if (x < 0 || x > cols)
         return;
-    if (y < 0 || y > ScreenH())
+    if (y < 0 || y > rows)
         return;
 
-    int addr = (y * ScreenW()) + x;
-    if (addr < 0 || addr > ScreenW() * ScreenH())
+    unsigned int addr = (y * cols) + x;
+    if (addr < 0 || addr > cols * rows)
         return;
 
     m_ScreenBufferData[addr] = pixelChr;

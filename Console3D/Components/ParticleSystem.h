@@ -49,13 +49,13 @@ public:
         SetIncrement(RandomDbl(-0.2, 0.2));
     }
 
-    void Update()
+    void Update(double deltaTime, double instVol)
     {
-        m_X += forceX * cos(tetha);
-        m_Y += forceY * sin(tetha);
+        m_X += forceX * cos(tetha) * deltaTime;
+        m_Y += forceY * sin(tetha) * deltaTime;
 
-        tetha += increment;
-        m_LifeTime--;
+        tetha += increment * deltaTime;
+        m_LifeTime -= 1 * deltaTime;
 
         if (m_LifeTime < m_InitLifetime / 1.5)
             m_Char = 'X';
@@ -100,7 +100,7 @@ class ParticleSystem : public Component
 {
     ConsoleRenderer* m_Renderer;
     const int NUM_PARTICLES = 300;
-    const int PARTICLE_LIFETIME = 80;
+    const int PARTICLE_LIFETIME = 100;
     std::vector<Particle*> m_Particles = {};
     double m_ScrnX, m_ScrnY;
     double tetha = 0;
@@ -123,20 +123,20 @@ public:
         return min + f * (max - min);
     };
 
-    void Update()
+    void Update(double deltaTime, double instVol = 0.0)
     {
         std::vector<Particle*> m_Dead;
 
         for (auto& particle : m_Particles)
         {
-            particle->Update();
+            particle->Update(deltaTime, instVol);
             if (particle->isDead)
                 particle->Reset(m_ScrnX, m_ScrnY);
         }
 
-        m_ScrnX += 3 * cos(tetha);
-        m_ScrnY += 0.5 * sin(tetha);
-        tetha += 0.04;
+        m_ScrnX += 3 * cos(tetha) * deltaTime;
+        m_ScrnY += 0.5 * sin(tetha) * deltaTime;
+        tetha += 0.04 * deltaTime;
     }
 
     void Render()

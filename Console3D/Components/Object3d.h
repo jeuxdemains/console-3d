@@ -9,34 +9,33 @@ static float incRX, incRY, incRZ;
 
 class Object3d : public Component
 {
-	float fRotationX_ = 0.0f, fRotationY_ = 0.0f, fRotationZ_ = 0.0f;
-	std::vector<Vector3d::Mesh> objects_;
-	int m_ScrnW = 0, m_ScrnH = 0;
-	bool isFirst_ = false;
-	Matrix* matrix = nullptr;
+	std::vector<Vector3d::Mesh*> objects_ = {};
+	Matrix* m_Matrix = nullptr;
 	ConsoleRenderer* m_Renderer = nullptr;
+	double fRotationX_ = 0.0f, fRotationY_ = 0.0f, fRotationZ_ = 0.0f;
+	double fReactionAmp = 0.0f;
+	int m_ScrnW = 0, m_ScrnH = 0;
 	char m_Char = 0;
+	bool isFirst_ = false;
 
-	static const int vertCount = 7;
+	static const int VERTICES_CNT = 7;
 	Vector3d::Triangle
-		projectedTri[vertCount],
-		rotX[vertCount],
-		rotY[vertCount],
-		rotZ[vertCount],
-		transX[vertCount],
-		scale[vertCount];
-
-	int numVerticesToClear = 0;
+		projectedTri[VERTICES_CNT],
+		rotX[VERTICES_CNT],
+		rotY[VERTICES_CNT],
+		rotZ[VERTICES_CNT],
+		transX[VERTICES_CNT],
+		scale[VERTICES_CNT];
 
 public:
 	Object3d() {};
 	Object3d(int scrnW, int scrnH) : m_ScrnW(scrnW), m_ScrnH(scrnH) {};
 
-	void Object3dAdd(Vector3d::Mesh obj, ConsoleRenderer *renderer, int sW, int sH, char chr)
+	void Object3dAdd(Vector3d::Mesh* obj, ConsoleRenderer *renderer, int sW, int sH, char chr)
 	{
 		m_ScrnW = sW;
 		m_ScrnH = sH;
-		matrix = new Matrix((float)m_ScrnW, (float)m_ScrnH);
+		m_Matrix = new Matrix((float)m_ScrnW, (float)m_ScrnH);
 		m_Renderer = renderer;
 
 		incRX = incRY = incRZ += 0.003f;
@@ -61,17 +60,16 @@ public:
 		line2.y = tri.c.y - tri.a.y;
 		line2.z = tri.c.z - tri.a.z;
 
-		Vector3d* v3d = new Vector3d();
-		Vector3d::Vector3 cross = v3d->Cross(line1, line2);
+		Vector3d v3d;
+		Vector3d::Vector3 cross = v3d.Cross(line1, line2);
 		Vector3d::Vector3 normal, cam;
 
-		normal = v3d->Normalize(cross);
+		normal = v3d.Normalize(cross);
 		cam.x = tri.a.x - 0.0f;
 		cam.y = tri.a.y - 0.0f;
 		cam.z = tri.a.z - 0.0f;
 
-		float dot = v3d->Dot(normal, cam);
-		delete v3d;
+		float dot = v3d.Dot(normal, cam);
 
 		if (dot < 0.0f)
 			return true;
@@ -81,7 +79,7 @@ public:
 
 	void FillPolygon(Vector3d::Triangle& tri)
 	{
-		int x, y, dx, dy;
+		int x, y;
 		x = tri.a.x + tri.b.x + tri.c.x;
 		x /= 3;
 		y = tri.a.y + tri.b.y + tri.c.y;
@@ -95,9 +93,19 @@ public:
 		return (a > b) ? a : b;
 	}
 
+	void SetName(std::string name)
+	{
+		m_Name = name;
+	}
+
+	std::string Name()
+	{
+		return m_Name;
+	}
+
 	virtual ~Object3d();
-	virtual Vector3d::Mesh LoadModel(std::string fName) = 0;
-	virtual void Update();
+	virtual Vector3d::Mesh* LoadModel (std::string fName) = 0;
+	virtual void Update(double deltaTime, double instVol = 0.0);
 	virtual void Render();
 };
 

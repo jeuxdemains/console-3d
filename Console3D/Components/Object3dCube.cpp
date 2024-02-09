@@ -1,6 +1,6 @@
 #include "Object3dCube.h"
 
-Vector3d::Mesh Object3dCube::LoadModel(std::string fName /* not used */)
+Vector3d::Mesh* Object3dCube::LoadModel(std::string fName /* not used */)
 {
 	float fLow = -0.5f;
 	float fHigh = 0.5f;
@@ -89,19 +89,19 @@ Vector3d::Mesh Object3dCube::LoadModel(std::string fName /* not used */)
 		fHigh, fLow, fLow
 	};
 
-	Vector3d::Mesh obj, obj2;
-	obj.triangles.push_back(tri1);
-	obj.triangles.push_back(tri2);
-	obj.triangles.push_back(tri3);
-	obj.triangles.push_back(tri4);
-	obj.triangles.push_back(tri5);
-	obj.triangles.push_back(tri6);
-	obj.triangles.push_back(tri7);
-	obj.triangles.push_back(tri8);
-	obj.triangles.push_back(tri9);
-	obj.triangles.push_back(tri10);
-	obj.triangles.push_back(tri11);
-	obj.triangles.push_back(tri12);
+	Vector3d::Mesh* obj = new Vector3d::Mesh();
+	obj->triangles.push_back(tri1);
+	obj->triangles.push_back(tri2);
+	obj->triangles.push_back(tri3);
+	obj->triangles.push_back(tri4);
+	obj->triangles.push_back(tri5);
+	obj->triangles.push_back(tri6);
+	obj->triangles.push_back(tri7);
+	obj->triangles.push_back(tri8);
+	obj->triangles.push_back(tri9);
+	obj->triangles.push_back(tri10);
+	obj->triangles.push_back(tri11);
+	obj->triangles.push_back(tri12);
 
 	return obj;
 }

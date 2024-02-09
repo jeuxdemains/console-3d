@@ -9,7 +9,7 @@ class Vector3d
 public:
 	struct Vector3
 	{
-		float x = 0.0f, y = 0.0f, z = 0.0f;
+		double x = 0.0f, y = 0.0f, z = 0.0f;
 	};
 
 	struct Triangle
@@ -29,6 +29,7 @@ public:
 				return false;
 
 			std::vector<Vector3> verts;
+
 			while (!f.eof())
 			{
 				char line[128];
@@ -38,6 +39,7 @@ public:
 				s << line;
 
 				char junk;
+
 				if (line[0] == 'v')
 				{
 					Vector3 vec;
@@ -52,6 +54,7 @@ public:
 					triangles.push_back({ verts[f[0] - 1], verts[f[1] - 1], verts[f[2] - 1] });
 				}
 			}
+
 			return true;
 		}
 	};

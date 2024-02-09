@@ -7,10 +7,11 @@ class Banner : public Component
     ConsoleRenderer* m_Renderer;
     double m_X, m_Y;
     char V[8][50], M[8][50], W[8][50], A[8][50], R[8][50], E[8][50];
-    double tethaLetter = 0;
+    double tethaLetter = 0.1;
     double tetha = 0;
-
 public:
+    static double lastDeltaTime;
+
     Banner(ConsoleRenderer* renderer, double x, double y) :
         m_Renderer(renderer), m_X(x), m_Y(y)
     {
@@ -70,25 +71,28 @@ public:
         strcpy_s(E[7], "      ");
     }
 
-    void Update()
+    void Update(double deltaTime, double instVol = 0.0)
     {
-        m_X += cos(tetha);
+        lastDeltaTime = deltaTime;
+        m_X += cos(tetha) * deltaTime;
        // m_Y += 1 * sin(tetha/4);
-        tetha += 0.1;
+        tetha += 0.1 * deltaTime;
     }
 
     void Render()
     {
+        double inc = 0.01 * lastDeltaTime;
+
         DrawLetter(V, 0);
-        tethaLetter += 0.1;
+        tethaLetter += inc;
         DrawLetter(M, strlen(V[0]));
-        tethaLetter += 0.1;
+        tethaLetter += inc;
         DrawLetter(W, strlen(M[0]) * 2);
-        tethaLetter += 0.1;
+        tethaLetter += inc;
         DrawLetter(A, strlen(W[0]) * 3);
-        tethaLetter += 0.1;
+        tethaLetter += inc;
         DrawLetter(R, strlen(A[0]) * 4);
-        tethaLetter += 0.1;
+        tethaLetter += inc;
         DrawLetter(E, strlen(R[0]) * 5);
     }
 
@@ -98,9 +102,12 @@ public:
         {
             for (int col = 0; col < strlen(chr[row]); col++)
             {
-                double colY = m_Y;
-                colY += 5 * sin(12 * tethaLetter);
-                m_Renderer->DrawPixel((double)col + m_X + xSpace, (double)row + colY, chr[row][col]);
+                double x = (double)col + m_X + xSpace;
+
+                double colY = m_Y + 10;
+                colY *= 0.2 * sin(tethaLetter);
+                double y = (double)row + colY + 10;
+                m_Renderer->DrawPixel(x, y, chr[row][col]);
             }
         }
     }
