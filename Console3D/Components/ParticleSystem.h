@@ -134,8 +134,8 @@ public:
                 particle->Reset(m_ScrnX, m_ScrnY);
         }
 
-        m_ScrnX += 3 * cos(tetha) * deltaTime;
-        m_ScrnY += 0.5 * sin(tetha) * deltaTime;
+        m_ScrnX += (3 * cos(tetha)) * deltaTime;
+        m_ScrnY += (0.5 * sin(tetha)) * deltaTime;
         tetha += 0.04 * deltaTime;
     }
 

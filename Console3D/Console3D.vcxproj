@@ -113,6 +113,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>BASSMOD.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -149,18 +150,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Components\Banner.cpp" />
-    <ClCompile Include="Components\Component.cpp" />
     <ClCompile Include="Components\Object3d.cpp" />
     <ClCompile Include="Components\Object3dCube.cpp" />
-    <ClCompile Include="Components\Object3dModel.cpp" />
-    <ClCompile Include="Components\ParticleSystem.cpp" />
     <ClCompile Include="ConsoleRenderer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix.cpp" />
-    <ClCompile Include="ObjectsFactory.cpp" />
     <ClCompile Include="SceneOrchestrator.cpp" />
-    <ClCompile Include="Scenes\Scene.cpp" />
-    <ClCompile Include="Scenes\Scene_1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\Banner.h" />

@@ -7,8 +7,8 @@ void CALLBACK BassmodCallback(HSYNC handle, DWORD data, DWORD user)
     int instrument = LOWORD(data);
     int volume = HIWORD(data);
 
-   /* if (instrument == 48)
-        printf("volume: %d\ninstrument: %d\n", volume, instrument);*/
+    //if (instrument == 48)
+    //    printf("volume: %d\ninstrument: %d\n", volume, instrument);
 
     if (instrument == 48)
         SceneOrchestrator::s_InstrumentVolume = volume;

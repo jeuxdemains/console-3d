@@ -11,22 +11,26 @@ void Object3d::Update(double deltaTime, double instVol)
 	fRotationY_ += 1.0f * 0.08f * deltaTime;
 	fRotationZ_ += 1.0f * 0.12f * deltaTime;
 	
-	if (instVol > 0 && fReactionAmp <= 2)
+	if (instVol > 0 && fReactionAmp <= 3)
 	{
 		fReactionAmp += instVol/80;
-		if (fReactionAmp > 3)
-			fReactionAmp = 3;
+		if (fReactionAmp > 9)
+			fReactionAmp = 9;
 	}
 	else
 	{
-		fReactionAmp -= 0.2 * deltaTime;
-		if (fReactionAmp < 1.0)
-			fReactionAmp = 1;
+		fReactionAmp -= 0.3 * deltaTime;
+		if (fReactionAmp < 0.3)
+			fReactionAmp = 0.3;
 	}
 }
 
 void Object3d::Render()
 {
+	double amp = fReactionAmp * 1.5;
+	if (amp > 1.0)
+		amp = 1.0;
+
 	Matrix::Matrix4 const matRotX =
 		m_Matrix->getRotationMatrix(fRotationX_, Matrix::Axis::x);
 	Matrix::Matrix4 const matRotY =
@@ -36,7 +40,7 @@ void Object3d::Render()
 	Matrix::Matrix4 const scaleMat = 
 		m_Matrix->setScaleMatrix(1.0f, 1.0f, 1.0f);
 	Matrix::Matrix4 const transMat =
-		m_Matrix->setTranslateMatrix(0.0f, 0.0f, 0.0f + fReactionAmp / 1.9);
+		m_Matrix->setTranslateMatrix(0.0f, 0.0f, 0.0f + amp);
 
 	int i = 0;
 	double cosfRotX2 = cosf(fRotationX_ * 2);
@@ -92,12 +96,12 @@ void Object3d::Render()
 		projectedTri[i].c.x += 1.0f;
 		projectedTri[i].c.y += 1.0f;
 
-		projectedTri[i].a.x *= 0.5f * (double)m_ScrnW;
-		projectedTri[i].a.y *= 0.5f * (double)m_ScrnH;
-		projectedTri[i].b.x *= 0.5f * (double)m_ScrnW;
-		projectedTri[i].b.y *= 0.5f * (double)m_ScrnH;
-		projectedTri[i].c.x *= 0.5f * (double)m_ScrnW;
-		projectedTri[i].c.y *= 0.5f * (double)m_ScrnH;
+		projectedTri[i].a.x *= (double)m_ScrnW / 2.0;
+		projectedTri[i].a.y *= (double)m_ScrnH / 2.0;
+		projectedTri[i].b.x *= (double)m_ScrnW / 2.0;
+		projectedTri[i].b.y *= (double)m_ScrnH / 2.0;
+		projectedTri[i].c.x *= (double)m_ScrnW / 2.0;
+		projectedTri[i].c.y *= (double)m_ScrnH / 2.0;
 
 		FillPolygon(projectedTri[i]);
 

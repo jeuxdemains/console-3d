@@ -35,7 +35,7 @@ void main()
     double deltaTime = 0;
 
     double fps = 30.0f;
-    double fpsCap = (1 / fps * 1000.0f);
+    double fpsCap = (1.0 / fps * 1000.0f);
 
     while (1)
     {

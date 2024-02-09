@@ -23,9 +23,9 @@ public:
         strcpy_s(V[4], "# . # ");
         strcpy_s(V[5], " '#'  ");
         strcpy_s(V[6], "      ");
-        strcpy_s(V[7], "      ");
+        strcpy_s(V[7], "  +   ");
 
-        strcpy_s(M[0], "      ");
+        strcpy_s(M[0], " + +  ");
         strcpy_s(M[1], "      ");
         strcpy_s(M[2], ".#.#. ");
         strcpy_s(M[3], "# # # ");
@@ -41,9 +41,9 @@ public:
         strcpy_s(W[4], "# # # ");
         strcpy_s(W[5], "## ## ");
         strcpy_s(W[6], "      ");
-        strcpy_s(W[7], "      ");
+        strcpy_s(W[7], "+   + ");
 
-        strcpy_s(A[0], "      ");
+        strcpy_s(A[0], "  +   ");
         strcpy_s(A[1], "      ");
         strcpy_s(A[2], ".#*#. ");
         strcpy_s(A[3], "#   # ");
@@ -52,7 +52,7 @@ public:
         strcpy_s(A[6], "      ");
         strcpy_s(A[7], "+   + ");
 
-        strcpy_s(R[0], "      ");
+        strcpy_s(R[0], "+     ");
         strcpy_s(R[1], "      ");
         strcpy_s(R[2], "##*#. ");
         strcpy_s(R[3], "#  .# ");
@@ -61,27 +61,27 @@ public:
         strcpy_s(R[6], "      ");
         strcpy_s(R[7], "+   + ");
 
-        strcpy_s(E[0], "      ");
+        strcpy_s(E[0], "+   + ");
         strcpy_s(E[1], "      ");
-        strcpy_s(E[2], "#####  +");
+        strcpy_s(E[2], "##### ");
         strcpy_s(E[3], "#     ");
         strcpy_s(E[4], "###   ");
-        strcpy_s(E[5], "#####  +");
+        strcpy_s(E[5], "##### ");
         strcpy_s(E[6], "      ");
-        strcpy_s(E[7], "      ");
+        strcpy_s(E[7], "+   + ");
     }
 
     void Update(double deltaTime, double instVol = 0.0)
     {
         lastDeltaTime = deltaTime;
         m_X += cos(tetha) * deltaTime;
-       // m_Y += 1 * sin(tetha/4);
+        m_Y += 5.5 * sin(tetha) * deltaTime;
         tetha += 0.1 * deltaTime;
     }
 
     void Render()
     {
-        double inc = 0.01 * lastDeltaTime;
+        double inc = 0.03 * lastDeltaTime;
 
         DrawLetter(V, 0);
         tethaLetter += inc;
@@ -104,9 +104,9 @@ public:
             {
                 double x = (double)col + m_X + xSpace;
 
-                double colY = m_Y + 10;
-                colY *= 0.2 * sin(tethaLetter);
-                double y = (double)row + colY + 10;
+                double colY = m_Y;
+                colY = 15 + (8 * sin(tethaLetter + xSpace));
+                double y = (double)row + colY;
                 m_Renderer->DrawPixel(x, y, chr[row][col]);
             }
         }
