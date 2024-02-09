@@ -26,7 +26,11 @@ public:
 		{
 			std::ifstream f(fName);
 			if (!f.is_open())
+			{
+				printf("error loading model: %s\n", fName.c_str());
+				exit;
 				return false;
+			}
 
 			std::vector<Vector3> verts;
 

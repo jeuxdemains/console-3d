@@ -37,6 +37,7 @@ public:
     unsigned int ScreenW() { return cols; }
     unsigned int ScreenH() { return rows; }
     unsigned int cols = 0, rows = 0;
+    HWND GetConsoleWindow() { return hWin; }
 
 };
 

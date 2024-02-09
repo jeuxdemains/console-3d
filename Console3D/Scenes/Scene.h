@@ -44,8 +44,30 @@ public:
 
     virtual void Update(double deltaTime, double instVol = 0.0)
     {
+        static double timer = 0;
+
+        timer += deltaTime;
+        if (timer >= 300)
+        {
+            timer = 0;
+
+            for (auto& comp : m_Components)
+            {
+                if (comp->Name() == "cube" || comp->Name() == "model")
+                {
+                    comp->m_Enabled = !comp->m_Enabled;
+                }
+            }
+        }
+
         for (auto& comp : m_Components)
+        {
+
+            if (!comp->m_Enabled)
+                continue;
+
             comp->Update(deltaTime, instVol);
+        }
     };
 
     virtual void Render()
@@ -53,7 +75,12 @@ public:
         m_Renderer->Clear();
 
         for (auto& comp : m_Components)
+        {
+            if (comp->m_Enabled != true)
+                continue;
+
             comp->Render();
+        }
     };
 };
 

@@ -29,7 +29,7 @@ void main()
     }*/
 
 
-    renderer->SetFontSize(7, 8);
+    renderer->SetFontSize(6, 7);
 
     SceneOrchestrator* orchestrator = new SceneOrchestrator(renderer);
     double deltaTime = 0;

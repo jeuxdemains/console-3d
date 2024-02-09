@@ -16,8 +16,8 @@ void ConsoleRenderer::Init(short screenWCols, short screenHRows)
     SetSize(cols, rows);
 
     size_t sz = size_t(cols*rows);
-    m_ScreenBufferData = (unsigned char*)malloc(sz);
-    memset(m_ScreenBufferData, 0x20, sz);
+    m_ScreenBufferData = (unsigned char*)malloc(sz + 1);
+    memset(m_ScreenBufferData, 0x20, sz + 1);
 }
 
 void ConsoleRenderer::Clear()

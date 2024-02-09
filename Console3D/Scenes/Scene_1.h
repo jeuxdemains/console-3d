@@ -26,12 +26,23 @@ public:
             m_Renderer->rows,
             '#');
 
+
+        Object3d* model = objFac.CreateObject(
+            ObjectsFactory::model,
+            m_Renderer,
+            m_Renderer->cols,
+            m_Renderer->rows,
+            '%');
+
+        model->m_Enabled = false;
+
         ParticleSystem* particleSys = new ParticleSystem(
             m_Renderer, m_Renderer->ScreenW() / 2,
             m_Renderer->ScreenH() / 2);
 
         Banner* banner = new Banner(m_Renderer, m_Renderer->cols / 2 - 16, 7);
 
+        AddComponent(model);
         AddComponent(cube);
         AddComponent(particleSys);
         AddComponent(banner);

@@ -33,9 +33,10 @@ public:
 			obj = new Object3dModel("globe.obj", renderer, scrnW, scrnH, chr);
 			obj->SetName("globe");
 			break;
+		case ObjectsFactory::model:
 		default:
-			obj = new Object3dModel("tetrahedron.obj", renderer, scrnW, scrnH, chr);
-			obj->SetName("tetrahedron");
+			obj = new Object3dModel("model.obj", renderer, scrnW, scrnH, chr);
+			obj->SetName("model");
 			break;
 		}
 

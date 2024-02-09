@@ -31,6 +31,13 @@ void Object3d::Render()
 	if (amp > 1.0)
 		amp = 1.0;
 
+	double scalesz = 0;
+	if (m_Name == "globe" || m_Name == "model")
+	{
+		scalesz = amp * 2;
+		amp = 0;
+	}
+
 	Matrix::Matrix4 const matRotX =
 		m_Matrix->getRotationMatrix(fRotationX_, Matrix::Axis::x);
 	Matrix::Matrix4 const matRotY =
@@ -38,7 +45,7 @@ void Object3d::Render()
 	Matrix::Matrix4 const matRotZ =
 		m_Matrix->getRotationMatrix(fRotationZ_, Matrix::Axis::z);
 	Matrix::Matrix4 const scaleMat = 
-		m_Matrix->setScaleMatrix(1.0f, 1.0f, 1.0f);
+		m_Matrix->setScaleMatrix(1.0f, 1.0f, 1.0f + scalesz);
 	Matrix::Matrix4 const transMat =
 		m_Matrix->setTranslateMatrix(0.0f, 0.0f, 0.0f + amp);
 
