@@ -12,21 +12,21 @@ void main()
     ConsoleRenderer* renderer = new ConsoleRenderer();
     renderer->Init(SCRN_W, SCRN_H);
 
-    /*renderer->SetFontSize(15, 30);
-    std::cout << "   jeux/TRSI\n";
-    Sleep(1000);
-    std::cout << "   PRESENTS\n";
-    Sleep(1000);
-    std::cout << "3D donsole demo\n";
-    Sleep(1000);
-    std::cout << " from scratch\n";
-    Sleep(3000);
+    renderer->SetFontSize(10, 20);
+    std::cout << "      jeux/TRSI\n";
+    Sleep(500);
+    std::cout << "      PRESENTS\n";
+    Sleep(500);
+    std::cout << "VMware 3D donsole demo\n";
+    Sleep(500);
+    std::cout << "    from scratch\n";
+    Sleep(2000);
 
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < 10; i++)
     {
         renderer->SetFontSize(15+i*2, 30+i*2);
         Sleep(100);
-    }*/
+    }
 
 
     renderer->SetFontSize(6, 7);

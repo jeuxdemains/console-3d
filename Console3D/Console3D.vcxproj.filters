@@ -48,6 +48,9 @@
     <ClCompile Include="Components\Object3dCube.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Components\PrimitiveCircles.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vector3d.h">
@@ -88,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="Scenes\Scene_1.h">
       <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\PrimitiveCircles.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

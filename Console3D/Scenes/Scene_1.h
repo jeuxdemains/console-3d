@@ -4,6 +4,7 @@
 #include "../Components/ParticleSystem.h"
 #include "../Components/Object3d.h"
 #include "../ObjectsFactory.h"
+#include "../Components/PrimitiveCircles.h"
 
 class Scene_1 : public Scene
 {
@@ -39,6 +40,16 @@ public:
         ParticleSystem* particleSys = new ParticleSystem(
             m_Renderer, m_Renderer->ScreenW() / 2,
             m_Renderer->ScreenH() / 2);
+
+
+        std::vector<PrimitiveCircles> circles = {};
+        for (int i = 0; i < 20; i++)
+        {
+            double x = 55 - (i * 5);
+            double delayedStart = 2 * i;
+            PrimitiveCircles* pc = new PrimitiveCircles(m_Renderer, m_Renderer->cols / 2 - x, 20, delayedStart);
+            AddComponent(pc);
+        }
 
         Banner* banner = new Banner(m_Renderer, m_Renderer->cols / 2 - 16, 7);
 

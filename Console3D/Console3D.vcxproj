@@ -152,6 +152,7 @@
     <ClCompile Include="Components\Banner.cpp" />
     <ClCompile Include="Components\Object3d.cpp" />
     <ClCompile Include="Components\Object3dCube.cpp" />
+    <ClCompile Include="Components\PrimitiveCircles.cpp" />
     <ClCompile Include="ConsoleRenderer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="Components\Object3dCube.h" />
     <ClInclude Include="Components\Object3dModel.h" />
     <ClInclude Include="Components\ParticleSystem.h" />
+    <ClInclude Include="Components\PrimitiveCircles.h" />
     <ClInclude Include="ConsoleRenderer.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="ObjectsFactory.h" />
