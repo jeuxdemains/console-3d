@@ -16,8 +16,8 @@ void ConsoleRenderer::Init(short screenWCols, short screenHRows)
     SetSize(cols, rows);
 
     size_t sz = size_t(cols*rows);
-    m_ScreenBufferData = (unsigned char*)malloc(sz + 1);
-    memset(m_ScreenBufferData, 0x20, sz + 1);
+    m_ScreenBufferData = (unsigned char*)malloc(sizeof(unsigned char) * sz);
+    memset(m_ScreenBufferData, 0x20, sz);
 }
 
 void ConsoleRenderer::Clear()
@@ -37,9 +37,9 @@ void ConsoleRenderer::Clear()
 
 void ConsoleRenderer::DrawPixel(unsigned int x, unsigned int y, char pixelChr)
 {
-    if (x < 0 || x > cols)
+    if (x < 1 || x > cols-1)
         return;
-    if (y < 0 || y > rows)
+    if (y < 1 || y > rows-1)
         return;
 
     unsigned int addr = (y * cols) + x;

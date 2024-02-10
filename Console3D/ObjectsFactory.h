@@ -35,7 +35,7 @@ public:
 			break;
 		case ObjectsFactory::model:
 		default:
-			obj = new Object3dModel("globe.obj", renderer, scrnW, scrnH, chr);
+			obj = new Object3dModel("globe.obj", renderer, scrnW, scrnH, '#');
 			obj->SetName("model");
 			break;
 		}
